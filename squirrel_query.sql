@@ -50,3 +50,30 @@ SELECT COUNT(DISTINCT UNIQUE_SQUIRREL_ID) AS "Unique Squirrels Each Day", dates
 FROM squirrels
 GROUP BY dates
 
+-- Squirrel Behavior
+SELECT (COUNT(approaches)/COUNT(DISTINCT UNIQUE_SQUIRREL_ID))*100
+
+-- WHAT PERCENT OF SQUIRRELS APPROACH BY ?/SHIFT? 5.89%
+SELECT SUM(approaches) AS "Approaches", COUNT(unique_squirrel_id), ROUND(((SUM(approaches)/COUNT(unique_squirrel_id)))*100, 2)
+FROM squirrels
+
+SELECT shift, SUM(approaches), ROUND(((SUM(approaches)/COUNT(unique_squirrel_id)))*100, 2)
+FROM squirrels
+GROUP BY shift
+
+-- WHAT PERCENT OF SQUIRRELS RUN AWAY BY ?/SHIFT? 22.43%
+SELECT SUM(runs_from) AS "Runs Away", COUNT(unique_squirrel_id), ROUND(((SUM(runs_from)/COUNT(unique_squirrel_id)))*100, 2)
+FROM squirrels
+
+SELECT shift, SUM(runs_from), ROUND(((SUM(runs_from)/COUNT(unique_squirrel_id)))*100, 2)
+FROM squirrels
+GROUP BY shift
+
+-- WHAT PERCENT OF SQUIRRELS ARE INDIFFERENT BY ?/SHIFT? 48.10% **43-53% Not afraid of humans
+SELECT SUM(indifferent) AS "Indifferent", COUNT(unique_squirrel_id), ROUND(((SUM(indifferent)/COUNT(unique_squirrel_id)))*100, 2)
+FROM squirrels
+
+SELECT shift, SUM(indifferent), ROUND(((SUM(indifferent)/COUNT(unique_squirrel_id)))*100, 2)
+FROM squirrels
+GROUP BY shift
+
