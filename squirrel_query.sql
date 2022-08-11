@@ -77,3 +77,11 @@ SELECT shift, SUM(indifferent), ROUND(((SUM(indifferent)/COUNT(unique_squirrel_i
 FROM squirrels
 GROUP BY shift
 
+-- Information on Squirrel appearance and behavior. 
+SELECT primary_fur_color FROM squirrels
+SELECT DISTINCT(primary_fur_color) FROM squirrels
+WHERE primary_fur_color IS NOT NULL
+
+SELECT primary_fur_color, COUNT(primary_fur_color) FROM squirrels --PRIMARY COLOR IS GRAY
+WHERE primary_fur_color IS NOT NULL
+GROUP BY primary_fur_color
