@@ -136,3 +136,41 @@ FROM sqbehave
 WHERE primary_fur_color IS NOT null AND locations IS NOT null
 GROUP BY 2, 1
 ORDER BY primary_fur_color, locations
+
+-- Count total by age and color
+SELECT age, primary_fur_color, COUNT(unique_squirrel_id) As Totals
+FROM sqbehave
+WHERE age = 'Juvenile' AND primary_fur_color = 'Black'
+GROUP BY 1, 2
+ORDER BY 1
+
+SELECT age, primary_fur_color, COUNT(unique_squirrel_id) As Totals
+FROM sqbehave
+WHERE age = 'Juvenile' AND primary_fur_color = 'Cinmon'
+GROUP BY 1, 2
+ORDER BY 1
+
+SELECT age, primary_fur_color, COUNT(unique_squirrel_id) As Totals
+FROM sqbehave
+WHERE age = 'Juvenile' AND primary_fur_color = 'Gray'
+GROUP BY 1, 2
+ORDER BY 1
+
+--Above and Ground Level -- Ground Plane Above Ground
+SELECT age, primary_fur_color, locations, COUNT(unique_squirrel_id) As Totals
+FROM sqbehave
+WHERE age = 'Adult' AND primary_fur_color = 'Black'
+GROUP BY 1, 2, 3
+ORDER BY 1
+
+SELECT age, primary_fur_color, locations, COUNT(unique_squirrel_id) As Totals
+FROM sqbehave
+WHERE age = 'Juvenile' AND primary_fur_color = 'Cinmon'
+GROUP BY 1, 2, 3
+ORDER BY 1
+
+SELECT age, primary_fur_color, locations, COUNT(unique_squirrel_id) As Totals
+FROM sqbehave
+WHERE age = 'Adult' AND primary_fur_color = 'Gray'
+GROUP BY 1, 2, 3
+ORDER BY 1
