@@ -23,6 +23,21 @@ Create Table sqbehave (
 	indifferent NUMERIC,
 	runs_from NUMERIC
 );
+-- Identify duplicates in the table
+SELECT UNIQUE_SQUIRREL_ID, COUNT(UNIQUE_SQUIRREL_ID)
+FROM squirrels
+GROUP BY UNIQUE_SQUIRREL_ID
+HAVING COUNT(*) > 1
+
+-- Drop Duplicate Rows
+DELETE FROM squirrels a USING (
+      SELECT MIN(ctid) as ctid, unique_squirrel_id
+        FROM squirrels 
+        GROUP BY unique_squirrel_id HAVING COUNT(*) > 1
+      ) b
+      WHERE a.unique_squirrel_id = b.unique_squirrel_id 
+      AND a.ctid <> b.ctid
+
 
 --Cinmon Sq Approachability 
 Select age as Age, primary_fur_color AS Color,
@@ -174,3 +189,12 @@ FROM sqbehave
 WHERE age = 'Adult' AND primary_fur_color = 'Gray'
 GROUP BY 1, 2, 3
 ORDER BY 1
+
+-- Information on Squirrel appearance and behavior. 
+SELECT primary_fur_color FROM squirrels
+SELECT DISTINCT(primary_fur_color) FROM squirrels
+WHERE primary_fur_color IS NOT NULL
+
+SELECT primary_fur_color, COUNT(primary_fur_color) FROM squirrels --PRIMARY COLOR IS GRAY
+WHERE primary_fur_color IS NOT NULL
+GROUP BY primary_fur_color
